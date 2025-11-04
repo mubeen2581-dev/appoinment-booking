@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react"
+﻿import { useEffect, useMemo, useRef, useState } from "react"
 import { format } from "date-fns"
 import { Elements } from "@stripe/react-stripe-js"
 import { loadStripe } from "@stripe/stripe-js"
@@ -33,7 +33,11 @@ export const BookingPage = () => {
   const [locations, setLocations] = useState([])
   const [selectedService, setSelectedService] = useState(null)
   const [selectedLocation, setSelectedLocation] = useState(null)
-  const [selectedDate, setSelectedDate] = useState(() => new Date())
+  const [selectedDate, setSelectedDate] = useState(() => {
+    const start = new Date()
+    start.setHours(0, 0, 0, 0)
+    return start
+  })
   const [selectedSlot, setSelectedSlot] = useState(null)
   const [bookings, setBookings] = useState([])
   const [loadingSlots, setLoadingSlots] = useState(false)
@@ -207,7 +211,10 @@ export const BookingPage = () => {
         notes: formData.notes || undefined,
         applyLoyaltyPoints: formData.applyLoyaltyPoints,
         joinWaitlistIfFull: formData.joinWaitlistIfFull,
-        paymentIntentId,
+      }
+
+      if (paymentIntentId) {
+        payload.paymentIntentId = paymentIntentId
       }
 
       const response = await createAppointment(payload)
@@ -315,3 +322,6 @@ export const BookingPage = () => {
     </div>
   )
 }
+
+
+
