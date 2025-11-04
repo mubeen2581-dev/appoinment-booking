@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+ï»¿import { useEffect, useState } from "react"
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -159,28 +159,29 @@ export const AdminPage = () => {
       ) : null}
 
       {serviceLabels.length ? (
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+        <div className="card-surface rounded-2xl border border-slate-200 bg-white/95 p-6 shadow-md transition-colors dark:border-slate-700/60 dark:bg-slate-900/75 dark:shadow-xl">
           <h2 className="text-lg font-semibold text-slate-700 dark:text-slate-100">Service popularity</h2>
-          <Bar
-            data={{
-              labels: serviceLabels,
-              datasets: [
-                {
-                  label: "Bookings",
-                  data: serviceTotals,
-                  backgroundColor: "rgba(14, 165, 233, 0.6)",
+          <div className="mt-4 h-64">
+            <Bar
+              data={{
+                labels: serviceLabels,
+                datasets: [
+                  {
+                    label: "Bookings",
+                    data: serviceTotals,
+                    backgroundColor: "rgba(14, 165, 233, 0.6)",
+                  },
+                ],
+              }}
+              options={{
+                plugins: {
+                  legend: { display: false },
                 },
-              ],
-            }}
-            options={{
-              plugins: {
-                legend: { display: false },
-              },
-              responsive: true,
-              maintainAspectRatio: false,
-            }}
-            height={240}
-          />
+                responsive: true,
+                maintainAspectRatio: false,
+              }}
+            />
+          </div>
         </div>
       ) : null}
 
@@ -219,10 +220,10 @@ export const AdminPage = () => {
               <li key={entry._id} className="flex flex-wrap items-center justify-between gap-4 py-3">
                 <div>
                   <p className="text-sm font-semibold text-slate-700 dark:text-slate-100">
-                    {entry.customer.name} • {entry.date} at {entry.preferredTimeSlot}
+                    {entry.customer.name} â€¢ {entry.date} at {entry.preferredTimeSlot}
                   </p>
                   <p className="text-xs text-slate-500 dark:text-slate-400">
-                    {entry.customer.email} • {entry.service?.name}
+                    {entry.customer.email} â€¢ {entry.service?.name}
                   </p>
                 </div>
                 <button
@@ -247,7 +248,7 @@ export const AdminPage = () => {
             {feedback.map((entry) => (
               <li key={entry._id} className="rounded-lg border border-slate-200 p-4 dark:border-slate-700 dark:bg-slate-900">
                 <p className="text-sm font-semibold text-slate-700 dark:text-slate-100">
-                  {entry.user?.name ?? "Anonymous"} • {entry.rating}?
+                  {entry.user?.name ?? "Anonymous"} â€¢ {entry.rating}?
                 </p>
                 {entry.comments ? (
                   <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{entry.comments}</p>
@@ -279,3 +280,4 @@ const SummaryCard = ({ title, value, caption }) => (
     {caption ? <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">{caption}</p> : null}
   </div>
 )
+
